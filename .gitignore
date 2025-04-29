@@ -32,3 +32,11 @@ build
 *.exe
 *.out
 *.app
+
+# python
+*.pyc
+__pycache__
+
+# logs
+*.log
+logs

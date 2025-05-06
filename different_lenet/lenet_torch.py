@@ -25,6 +25,7 @@ def get_dataloader(train=True, batch_size=64):
         dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=8)
     return dataloader
  
+
 class LeNet(nn.Module):
 
     def __init__(self):
@@ -135,14 +136,16 @@ if __name__ == "__main__":
     # Create a random input tensor with shape (1, 1, 28, 28)
     input_tensor = torch.randn(1, 1, 28, 28)
 
-    # Perform a forward pass through the model
-    output = model(input_tensor)
+    # use trace to acclerate the model
+    # ------------------------- important
+    model = torch.jit.trace(model, input_tensor)
+    # -------------------------
 
     # Add the model graph to TensorBoard
     writer.add_graph(model, input_tensor)
 
     # Train the model
-    train(30, model, train_loader, test_loader, crierion, optimizer, writer, device)
+    train(10, model, train_loader, test_loader, crierion, optimizer, writer, device)
 
     # Save the model
     torch.save(model.state_dict(), os.path.join(log_dir, "lenet_mnist.pth"))

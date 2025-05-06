@@ -1,0 +1,17 @@
+{
+  "program": "train.py",
+  "method": "random",
+  "metric": {
+    "name": "loss",
+    "goal": "minimize"
+  },
+  "run_cap":5,
+  "parameters": {
+    "learning_rate": {
+      "values": [0.1, 0.01, 0.001]
+    },
+    "batch_size": {
+      "values": [32, 64]
+    }
+  }
+}
